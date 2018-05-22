@@ -301,6 +301,12 @@ public class Controller
                     grid[randomRow][randomCol + 1] = FIRE;
                     grid[randomRow][randomCol] = EMPTY;
                 }
+
+                else if (grid[randomRow][randomCol + 1] == WOOD)    //Test burning, edit later
+                {
+                    grid[randomRow][randomCol + 1] = FIRE;
+                    grid[randomRow][randomCol] = EMPTY;
+                }
             }
             else if (randomDirection == 1 && randomCol - 1 != -1)	//Left
             {
@@ -314,6 +320,11 @@ public class Controller
                     grid[randomRow][randomCol - 1 ] = FIRE;
                     grid[randomRow][randomCol] = EMPTY;
                 }
+                else if (grid[randomRow][randomCol - 1] == WOOD)
+                {
+                    grid[randomRow][randomCol - 1 ] = FIRE;
+                    grid[randomRow][randomCol] = EMPTY;
+                }
             }
             else if (randomDirection == 2 && randomRow != 0)	//Up
             {
@@ -323,6 +334,11 @@ public class Controller
                 }
 
                 else if (grid[randomRow - 1][randomCol] == EMPTY)
+                {
+                    grid[randomRow - 1][randomCol] = FIRE;
+                    grid[randomRow][randomCol] = EMPTY;
+                }
+                else if (grid[randomRow - 1][randomCol] == WOOD)
                 {
                     grid[randomRow - 1][randomCol] = FIRE;
                     grid[randomRow][randomCol] = EMPTY;
