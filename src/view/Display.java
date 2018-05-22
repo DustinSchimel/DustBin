@@ -22,6 +22,7 @@ public class Display extends JComponent implements MouseListener,
     private JButton[] toolButtons;
     private JButton saveButton;
     private JButton loadButton;
+    private JButton clearButton;
     private JSlider slider;
     private int speed;
     private Controller controller;
@@ -73,9 +74,11 @@ public class Display extends JComponent implements MouseListener,
 
         saveButton = new JButton("Save");
         loadButton = new JButton("Load");
+        clearButton = new JButton("Clear");
 
         buttonPanel.add(saveButton);
         buttonPanel.add(loadButton);
+        buttonPanel.add(clearButton);
 
         slider = new JSlider(JSlider.HORIZONTAL, 0, 25, 20);
         slider.addChangeListener(this);
@@ -232,6 +235,13 @@ public class Display extends JComponent implements MouseListener,
             public void actionPerformed(ActionEvent click)
             {
                 controller.loadLevel(numRows, numCols);
+            }
+        });
+        clearButton.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent click)
+            {
+                controller.clearLevel();
             }
         });
     }
