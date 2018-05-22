@@ -24,6 +24,7 @@ public class Controller
     public static final int ACID = 7;
     public static final int PINK_VIRUS = 8;
     public static final int PURPLE_VIRUS = 9;
+    public static final int FIRE = 10;
 
     private int[][] grid;
     private Display display;
@@ -34,7 +35,7 @@ public class Controller
         int numCols = 100;
 
         String[] toolNames;
-        toolNames = new String[10];
+        toolNames = new String[11];
         toolNames[EMPTY] = "Eraser";
         toolNames[SAND] = "Sand";
         toolNames[METAL] = "Metal";
@@ -45,6 +46,7 @@ public class Controller
         toolNames[ACID] = "Acid";
         toolNames[PINK_VIRUS] = "Pink Virus";
         toolNames[PURPLE_VIRUS] = "Purple Virus";
+        toolNames[FIRE] = "Fire";
 
         grid = new int[numRows][numCols];
 
@@ -103,6 +105,23 @@ public class Controller
                 else if (grid[row][col] == PURPLE_VIRUS)
                 {
                     display.setColor(row, col, new Color(138, 43, 226));
+                }
+                else if (grid[row][col] == FIRE)
+                {
+                    int randomColor = (int) (Math.random() * 3);
+
+                    if (randomColor == 0)
+                    {
+                        display.setColor(row, col, new Color(253,207,88));
+                    }
+                    else if (randomColor == 1)
+                    {
+                        display.setColor(row, col, new Color(242,125,12));
+                    }
+                    else if (randomColor == 2)
+                    {
+                        display.setColor(row, col, new Color(128,9,9));
+                    }
                 }
             }
         }
@@ -221,6 +240,13 @@ public class Controller
         {
             int randomDirection = (int) (Math.random() * 3);
 
+            int dissipateChance = (int) (Math.random() * 75);
+
+            if (dissipateChance == 0)
+            {
+                grid[randomRow][randomCol] = EMPTY;
+            }
+
             if (randomDirection == 0 && randomCol + 1 != grid[0].length)	//Right
             {
                 if (grid[randomRow][randomCol + 1] == EMPTY)
@@ -233,7 +259,7 @@ public class Controller
             {
                 if (grid[randomRow][randomCol - 1] == EMPTY)
                 {
-                    grid[randomRow][randomCol -1 ] = SMOKE;
+                    grid[randomRow][randomCol - 1 ] = SMOKE;
                     grid[randomRow][randomCol] = EMPTY;
                 }
             }
@@ -242,6 +268,63 @@ public class Controller
                 if (grid[randomRow - 1][randomCol] == EMPTY)
                 {
                     grid[randomRow - 1][randomCol] = SMOKE;
+                    grid[randomRow][randomCol] = EMPTY;
+                }
+            }
+        }
+
+        else if (grid[randomRow][randomCol] == FIRE)
+        {
+            int randomDirection = (int) (Math.random() * 3);
+
+            int removalChance = (int) (Math.random() * 15);
+
+            int smokeChance = (int) (Math.random() * 60);
+
+            if (randomRow != 0) //Stops smoke from spawning when the fire is at the top
+            {
+                if (smokeChance == 0)
+                {
+                    grid[randomRow - 1][randomCol] = SMOKE;
+                }
+            }
+
+            if (randomDirection == 0 && randomCol + 1 != grid[0].length)	//Right
+            {
+                if (removalChance < 1)
+                {
+                    grid[randomRow][randomCol] = EMPTY;
+                }
+
+                else if (grid[randomRow][randomCol + 1] == EMPTY)
+                {
+                    grid[randomRow][randomCol + 1] = FIRE;
+                    grid[randomRow][randomCol] = EMPTY;
+                }
+            }
+            else if (randomDirection == 1 && randomCol - 1 != -1)	//Left
+            {
+                if (removalChance < 1)
+                {
+                    grid[randomRow][randomCol] = EMPTY;
+                }
+
+                else if (grid[randomRow][randomCol - 1] == EMPTY)
+                {
+                    grid[randomRow][randomCol - 1 ] = FIRE;
+                    grid[randomRow][randomCol] = EMPTY;
+                }
+            }
+            else if (randomDirection == 2 && randomRow != 0)	//Up
+            {
+                if (removalChance < 1)
+                {
+                    grid[randomRow][randomCol] = EMPTY;
+                }
+
+                else if (grid[randomRow - 1][randomCol] == EMPTY)
+                {
+                    grid[randomRow - 1][randomCol] = FIRE;
                     grid[randomRow][randomCol] = EMPTY;
                 }
             }
