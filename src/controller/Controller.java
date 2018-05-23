@@ -195,11 +195,18 @@ public class Controller
         {
             int randomDirection = (int) (Math.random() * 3);
 
-            if (randomRow != grid.length - 1 && grid[randomRow + 1][randomCol] == EMPTY)
+            if (randomRow != grid.length - 1)
             {
-                randomDirection = (int) (Math.random() * 20);
+                if (grid[randomRow + 1][randomCol] == EMPTY)
+                {
+                    randomDirection = 2;
+                }
+                else
+                {
+                    randomDirection = (int) (Math.random() * 2);
+                }
             }
-
+            
             if (randomDirection == 0 && randomCol + 1 != grid[0].length)	//Right
             {
                 if (grid[randomRow][randomCol + 1] == EMPTY)
@@ -226,7 +233,7 @@ public class Controller
                     grid[randomRow][randomCol] = SMOKE;
                 }
             }
-            else if (randomDirection > 1 && randomRow != grid.length - 1)	//Down
+            else if (randomDirection == 2 && randomRow != grid.length - 1)	//Down
             {
                 if (grid[randomRow + 1][randomCol] == EMPTY)
                 {
