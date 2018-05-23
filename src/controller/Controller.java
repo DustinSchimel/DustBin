@@ -195,6 +195,11 @@ public class Controller
         {
             int randomDirection = (int) (Math.random() * 3);
 
+            if (randomRow != grid.length - 1 && grid[randomRow + 1][randomCol] == EMPTY)
+            {
+                randomDirection = (int) (Math.random() * 20);
+            }
+
             if (randomDirection == 0 && randomCol + 1 != grid[0].length)	//Right
             {
                 if (grid[randomRow][randomCol + 1] == EMPTY)
@@ -221,7 +226,7 @@ public class Controller
                     grid[randomRow][randomCol] = SMOKE;
                 }
             }
-            else if (randomDirection == 2 && randomRow != grid.length - 1)	//Down
+            else if (randomDirection > 1 && randomRow != grid.length - 1)	//Down
             {
                 if (grid[randomRow + 1][randomCol] == EMPTY)
                 {
@@ -281,7 +286,7 @@ public class Controller
 
             int smokeChance = (int) (Math.random() * 60);
 
-            if (randomRow != 0) //Stops smoke from spawning when the fire is at the top
+            if (randomRow != 0 && grid[randomRow - 1][randomCol] == EMPTY) //Stops smoke from spawning when the fire is at the top
             {
                 if (smokeChance == 0)
                 {
@@ -418,6 +423,11 @@ public class Controller
         {
             int randomDirection = (int) (Math.random() * 3);
 
+            if (randomRow != grid.length - 1 && grid[randomRow + 1][randomCol] == EMPTY)
+            {
+                randomDirection = (int) (Math.random() * 20);
+            }
+
             if (randomRow != 0)
             {
                 if (grid[randomRow - 1][randomCol] == SAND || grid[randomRow - 1][randomCol] == WATER || grid[randomRow - 1][randomCol] == DIRT)
@@ -453,7 +463,7 @@ public class Controller
                     grid[randomRow][randomCol] = EMPTY;
                 }
             }
-            else if (randomDirection == 2 && randomRow != grid.length - 1)	//Down
+            else if (randomDirection > 1 && randomRow != grid.length - 1)	//Down
             {
                 if (grid[randomRow + 1][randomCol] == EMPTY)
                 {
