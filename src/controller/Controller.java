@@ -26,6 +26,8 @@ public class Controller
     public static final int PURPLE_VIRUS = 9;
     public static final int FIRE = 10;
     public static final int OBSIDIAN = 11;
+    public static final int BOMB = 12;
+    public static final int EXPLOSION_FIRE = 13;
 
     private int[][] grid;
     private Display display;
@@ -36,7 +38,7 @@ public class Controller
         int numCols = 100;
 
         String[] toolNames;
-        toolNames = new String[12];
+        toolNames = new String[14];
         toolNames[EMPTY] = "Eraser";
         toolNames[SAND] = "Sand";
         toolNames[METAL] = "Metal";
@@ -49,6 +51,8 @@ public class Controller
         toolNames[PURPLE_VIRUS] = "Purple Virus";
         toolNames[FIRE] = "Fire";
         toolNames[OBSIDIAN] = "Obsidian";
+        toolNames[BOMB] = "Bomb";
+        toolNames[EXPLOSION_FIRE] = "Explosion Fire";
 
         grid = new int[numRows][numCols];
 
@@ -128,6 +132,27 @@ public class Controller
                 else if (grid[row][col] == OBSIDIAN)
                 {
                     display.setColor(row, col, new Color(38, 40, 41));
+                }
+                else if (grid[row][col] == BOMB)
+                {
+                    display.setColor(row, col, new Color(75, 83, 32));
+                }
+                else if (grid[row][col] == EXPLOSION_FIRE)
+                {
+                    int randomColor = (int) (Math.random() * 3);
+
+                    if (randomColor == 0)
+                    {
+                        display.setColor(row, col, new Color(253,207,88));
+                    }
+                    else if (randomColor == 1)
+                    {
+                        display.setColor(row, col, new Color(242,125,12));
+                    }
+                    else if (randomColor == 2)
+                    {
+                        display.setColor(row, col, new Color(128,9,9));
+                    }
                 }
             }
         }
@@ -505,6 +530,170 @@ public class Controller
                 {
                     grid[randomRow + 1][randomCol] = EMPTY;
                     grid[randomRow][randomCol] = EMPTY;
+                }
+            }
+        }
+        else if (grid[randomRow][randomCol] == BOMB)
+        {
+            int explosions = 0;
+
+            Boolean exploding = false;
+
+            if (randomCol + 1 != grid[0].length)    //Checks right side of the bomb
+            {
+                if (grid[randomRow][randomCol + 1] == FIRE || grid[randomRow][randomCol + 1] == EXPLOSION_FIRE)
+                {
+                    grid[randomRow][randomCol] = EXPLOSION_FIRE;
+
+                    exploding = true;
+                }
+            }
+            if (randomCol - 1 != -1)    //Checks left side of the bomb
+            {
+                if (grid[randomRow][randomCol - 1] == FIRE || grid[randomRow][randomCol - 1] == EXPLOSION_FIRE)
+                {
+                    grid[randomRow][randomCol] = EXPLOSION_FIRE;
+
+                    exploding = true;
+                }
+            }
+            if (randomRow != 0)    //Checks above the bomb
+            {
+                if (grid[randomRow - 1][randomCol] == FIRE || grid[randomRow - 1][randomCol] == EXPLOSION_FIRE)
+                {
+                    grid[randomRow][randomCol] = EXPLOSION_FIRE;
+
+                    exploding = true;
+                }
+            }
+            if (randomRow != grid.length - 1)    //Checks below the bomb
+            {
+                if (grid[randomRow + 1][randomCol] == FIRE || grid[randomRow + 1][randomCol] == EXPLOSION_FIRE)
+                {
+                    grid[randomRow][randomCol] = EXPLOSION_FIRE;
+
+                    exploding = true;
+                }
+            }
+
+            while (exploding == true)
+            {
+                int randomDirection = (int) (Math.random() * 4);
+
+                randomRow = (int) (Math.random() * grid.length);
+                randomCol = (int) (Math.random() * grid[0].length);
+
+                if (grid[randomRow][randomCol] == EXPLOSION_FIRE)
+                {
+                    //grid[randomRow][randomCol] = FIRE;
+
+                    if (randomDirection == 0 && randomCol + 1 != grid[0].length)    //Right
+                    {
+                        if (grid[randomRow][randomCol + 1] != OBSIDIAN) {
+                            grid[randomRow][randomCol + 1] = EXPLOSION_FIRE;
+                            explosions++;
+                        }
+                    } else if (randomDirection == 1 && randomCol - 1 != -1)    //Left
+                    {
+                        if (grid[randomRow][randomCol - 1] != OBSIDIAN) {
+                            grid[randomRow][randomCol - 1] = EXPLOSION_FIRE;
+                            explosions++;
+                        }
+                    } else if (randomDirection == 2 && randomRow != 0)    //Up
+                    {
+                        if (grid[randomRow - 1][randomCol] != OBSIDIAN) {
+                            grid[randomRow - 1][randomCol] = EXPLOSION_FIRE;
+                            explosions++;
+                        }
+                    } else if (randomDirection == 3 && randomRow != grid.length - 1)    //Down
+                    {
+                        if (grid[randomRow + 1][randomCol] != OBSIDIAN) {
+                            grid[randomRow + 1][randomCol] = EXPLOSION_FIRE;
+                            explosions++;
+                        }
+                    }
+
+                    if (explosions > 1000) {
+                        exploding = false;
+                    }
+                }
+            }
+        }
+
+        else if (grid[randomRow][randomCol] == EXPLOSION_FIRE)
+        {
+            int randomDirection = (int) (Math.random() * 3);
+
+            int removalChance = (int) (Math.random() * 15);
+
+            int smokeChance = (int) (Math.random() * 60);
+
+            if (randomRow != 0 && grid[randomRow - 1][randomCol] == EMPTY) //Stops smoke from spawning when the fire is at the top
+            {
+                if (smokeChance == 0)
+                {
+                    grid[randomRow - 1][randomCol] = SMOKE;
+                }
+            }
+
+            if (randomDirection == 0 && randomCol + 1 != grid[0].length)	//Right
+            {
+                if (removalChance < 1)
+                {
+                    grid[randomRow][randomCol] = EMPTY;
+                }
+
+                else if (grid[randomRow][randomCol + 1] == EMPTY)
+                {
+                    grid[randomRow][randomCol + 1] = EXPLOSION_FIRE;
+                    grid[randomRow][randomCol] = EMPTY;
+                }
+
+                else if (grid[randomRow][randomCol + 1] == WOOD)    //Test burning, edit later
+                {
+                    grid[randomRow][randomCol + 1] = EXPLOSION_FIRE;
+                    grid[randomRow][randomCol] = EXPLOSION_FIRE;
+                }
+            }
+            else if (randomDirection == 1 && randomCol - 1 != -1)	//Left
+            {
+                if (removalChance < 1)
+                {
+                    grid[randomRow][randomCol] = EMPTY;
+                }
+
+                else if (grid[randomRow][randomCol - 1] == EMPTY)
+                {
+                    grid[randomRow][randomCol - 1 ] = EXPLOSION_FIRE;
+                    grid[randomRow][randomCol] = EMPTY;
+                }
+                else if (grid[randomRow][randomCol - 1] == WOOD)
+                {
+                    grid[randomRow][randomCol - 1 ] = EXPLOSION_FIRE;
+                    grid[randomRow][randomCol] = EXPLOSION_FIRE;
+                }
+            }
+            else if (randomDirection == 2 && randomRow != 0)	//Up
+            {
+                if (removalChance < 1)
+                {
+                    grid[randomRow][randomCol] = EMPTY;
+                }
+
+                else if (grid[randomRow - 1][randomCol] == EMPTY)
+                {
+                    grid[randomRow - 1][randomCol] = EXPLOSION_FIRE;
+                    grid[randomRow][randomCol] = EMPTY;
+                }
+                else if (grid[randomRow - 1][randomCol] == WOOD)
+                {
+                    grid[randomRow - 1][randomCol] = EXPLOSION_FIRE;
+                    grid[randomRow][randomCol] = EXPLOSION_FIRE;
+
+                    if (randomRow != grid.length - 1)
+                    {
+                        grid[randomRow + 1][randomCol] = EXPLOSION_FIRE;
+                    }
                 }
             }
         }
