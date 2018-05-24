@@ -25,6 +25,7 @@ public class Controller
     public static final int PINK_VIRUS = 8;
     public static final int PURPLE_VIRUS = 9;
     public static final int FIRE = 10;
+    public static final int OBSIDIAN = 11;
 
     private int[][] grid;
     private Display display;
@@ -35,7 +36,7 @@ public class Controller
         int numCols = 100;
 
         String[] toolNames;
-        toolNames = new String[11];
+        toolNames = new String[12];
         toolNames[EMPTY] = "Eraser";
         toolNames[SAND] = "Sand";
         toolNames[METAL] = "Metal";
@@ -47,6 +48,7 @@ public class Controller
         toolNames[PINK_VIRUS] = "Pink Virus";
         toolNames[PURPLE_VIRUS] = "Purple Virus";
         toolNames[FIRE] = "Fire";
+        toolNames[OBSIDIAN] = "Obsidian";
 
         grid = new int[numRows][numCols];
 
@@ -122,6 +124,10 @@ public class Controller
                     {
                         display.setColor(row, col, new Color(128,9,9));
                     }
+                }
+                else if (grid[row][col] == OBSIDIAN)
+                {
+                    display.setColor(row, col, new Color(38, 40, 41));
                 }
             }
         }
@@ -369,28 +375,32 @@ public class Controller
 
             if (randomDirection == 0 && randomCol + 1 != grid[0].length)	//Right
             {
-                if (grid[randomRow][randomCol + 1] != EMPTY && grid[randomRow][randomCol + 1] != PINK_VIRUS)
+                if (grid[randomRow][randomCol + 1] != EMPTY && grid[randomRow][randomCol + 1] != PINK_VIRUS
+                        && grid[randomRow][randomCol + 1] != OBSIDIAN)
                 {
                     grid[randomRow][randomCol + 1] = PINK_VIRUS;
                 }
             }
             else if (randomDirection == 1 && randomCol - 1 != -1)	//Left
             {
-                if (grid[randomRow][randomCol - 1] != EMPTY && grid[randomRow][randomCol - 1] != PINK_VIRUS)
+                if (grid[randomRow][randomCol - 1] != EMPTY && grid[randomRow][randomCol - 1] != PINK_VIRUS
+                        && grid[randomRow][randomCol - 1] != OBSIDIAN)
                 {
                     grid[randomRow][randomCol - 1 ] = PINK_VIRUS;
                 }
             }
             else if (randomDirection == 2 && randomRow != 0)	//Up
             {
-                if (grid[randomRow - 1][randomCol] != EMPTY && grid[randomRow - 1][randomCol] != PINK_VIRUS)
+                if (grid[randomRow - 1][randomCol] != EMPTY && grid[randomRow - 1][randomCol] != PINK_VIRUS
+                        && grid[randomRow - 1][randomCol] != OBSIDIAN)
                 {
                     grid[randomRow - 1][randomCol] = PINK_VIRUS;
                 }
             }
             else if (randomDirection == 3 && randomRow != grid.length - 1)	//Down
             {
-                if (grid[randomRow + 1][randomCol] != EMPTY && grid[randomRow + 1][randomCol] != PINK_VIRUS)
+                if (grid[randomRow + 1][randomCol] != EMPTY && grid[randomRow + 1][randomCol] != PINK_VIRUS
+                        && grid[randomRow + 1][randomCol] != OBSIDIAN)
                 {
                     grid[randomRow + 1][randomCol] = PINK_VIRUS;
                 }
@@ -403,28 +413,32 @@ public class Controller
 
             if (randomDirection == 0 && randomCol + 1 != grid[0].length)	//Right
             {
-                if (grid[randomRow][randomCol + 1] != EMPTY && grid[randomRow][randomCol + 1] != PURPLE_VIRUS)
+                if (grid[randomRow][randomCol + 1] != EMPTY && grid[randomRow][randomCol + 1] != PURPLE_VIRUS
+                        && grid[randomRow][randomCol + 1] != OBSIDIAN)
                 {
                     grid[randomRow][randomCol + 1] = PURPLE_VIRUS;
                 }
             }
             else if (randomDirection == 1 && randomCol - 1 != -1)	//Left
             {
-                if (grid[randomRow][randomCol - 1] != EMPTY && grid[randomRow][randomCol - 1] != PURPLE_VIRUS)
+                if (grid[randomRow][randomCol - 1] != EMPTY && grid[randomRow][randomCol - 1] != PURPLE_VIRUS
+                        && grid[randomRow][randomCol - 1] != OBSIDIAN)
                 {
                     grid[randomRow][randomCol - 1 ] = PURPLE_VIRUS;
                 }
             }
             else if (randomDirection == 2 && randomRow != 0)	//Up
             {
-                if (grid[randomRow - 1][randomCol] != EMPTY && grid[randomRow - 1][randomCol] != PURPLE_VIRUS)
+                if (grid[randomRow - 1][randomCol] != EMPTY && grid[randomRow - 1][randomCol] != PURPLE_VIRUS
+                        && grid[randomRow - 1][randomCol] != OBSIDIAN)
                 {
                     grid[randomRow - 1][randomCol] = PURPLE_VIRUS;
                 }
             }
             else if (randomDirection == 3 && randomRow != grid.length - 1)	//Down
             {
-                if (grid[randomRow + 1][randomCol] != EMPTY && grid[randomRow + 1][randomCol] != PURPLE_VIRUS)
+                if (grid[randomRow + 1][randomCol] != EMPTY && grid[randomRow + 1][randomCol] != PURPLE_VIRUS
+                        && grid[randomRow + 1][randomCol] != OBSIDIAN)
                 {
                     grid[randomRow + 1][randomCol] = PURPLE_VIRUS;
                 }
@@ -441,12 +455,9 @@ public class Controller
                 {
                     randomDirection = 2;
                 }
-                else
-                {
-                    randomDirection = (int) (Math.random() * 2);
-                }
             }
 
+            /*
             if (randomRow != 0)
             {
                 if (grid[randomRow - 1][randomCol] == SAND || grid[randomRow - 1][randomCol] == WATER || grid[randomRow - 1][randomCol] == DIRT)
@@ -455,6 +466,7 @@ public class Controller
                     grid[randomRow][randomCol] = EMPTY;
                 }
             }
+            */
 
             if (randomDirection == 0 && randomCol + 1 != grid[0].length)	//Right
             {
@@ -463,7 +475,7 @@ public class Controller
                     grid[randomRow][randomCol + 1] = ACID;
                     grid[randomRow][randomCol] = EMPTY;
                 }
-                else if (grid[randomRow][randomCol + 1] != ACID)	//Destroys block to the right
+                else if (grid[randomRow][randomCol + 1] != ACID && grid[randomRow][randomCol + 1] != OBSIDIAN)	//Destroys block to the right
                 {
                     grid[randomRow][randomCol + 1] = EMPTY;
                     grid[randomRow][randomCol] = EMPTY;
@@ -476,7 +488,7 @@ public class Controller
                     grid[randomRow][randomCol - 1 ] = ACID;
                     grid[randomRow][randomCol] = EMPTY;
                 }
-                else if (grid[randomRow][randomCol - 1] != ACID)
+                else if (grid[randomRow][randomCol - 1] != ACID && grid[randomRow][randomCol - 1] != OBSIDIAN)
                 {
                     grid[randomRow][randomCol - 1] = EMPTY;
                     grid[randomRow][randomCol] = EMPTY;
@@ -489,7 +501,7 @@ public class Controller
                     grid[randomRow + 1][randomCol] = ACID;
                     grid[randomRow][randomCol] = EMPTY;
                 }
-                else if (grid[randomRow + 1][randomCol] != ACID)
+                else if (grid[randomRow + 1][randomCol] != ACID  && grid[randomRow + 1][randomCol] != OBSIDIAN)
                 {
                     grid[randomRow + 1][randomCol] = EMPTY;
                     grid[randomRow][randomCol] = EMPTY;
