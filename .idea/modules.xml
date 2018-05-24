@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/DustBin.iml" filepath="$PROJECT_DIR$/DustBin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DustBinSwing.iml" filepath="$PROJECT_DIR$/DustBinSwing.iml" />
     </modules>
   </component>
 </project>

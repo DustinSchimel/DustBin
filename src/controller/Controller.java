@@ -193,7 +193,7 @@ public class Controller
 
         if (grid[randomRow][randomCol] == WATER)
         {
-            int randomDirection = (int) (Math.random() * 3);
+            int randomDirection  = (int) (Math.random() * 3);
 
             if (randomRow != grid.length - 1)
             {
@@ -430,9 +430,16 @@ public class Controller
         {
             int randomDirection = (int) (Math.random() * 3);
 
-            if (randomRow != grid.length - 1 && grid[randomRow + 1][randomCol] == EMPTY)
+            if (randomRow != grid.length - 1)
             {
-                randomDirection = (int) (Math.random() * 20);
+                if (grid[randomRow + 1][randomCol] == EMPTY)
+                {
+                    randomDirection = 2;
+                }
+                else
+                {
+                    randomDirection = (int) (Math.random() * 2);
+                }
             }
 
             if (randomRow != 0)
@@ -470,7 +477,7 @@ public class Controller
                     grid[randomRow][randomCol] = EMPTY;
                 }
             }
-            else if (randomDirection > 1 && randomRow != grid.length - 1)	//Down
+            else if (randomDirection == 2 && randomRow != grid.length - 1)	//Down
             {
                 if (grid[randomRow + 1][randomCol] == EMPTY)
                 {
