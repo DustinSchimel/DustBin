@@ -337,7 +337,7 @@ public class Controller
             if (randomRow != grid.length - 1)
             {
                 if (grid[randomRow + 1][randomCol] == EMPTY || grid[randomRow + 1][randomCol] == SMOKE || grid[randomRow + 1][randomCol] == FIRE
-                        || grid[randomRow + 1][randomCol] == EXPLOSION_FIRE)
+                        || grid[randomRow + 1][randomCol] == EXPLOSION_FIRE || grid[randomRow + 1][randomCol] == ACID)
                 {
                     randomDirection = 2;
                 }
@@ -468,6 +468,11 @@ public class Controller
                 {
                     grid[randomRow + 1][randomCol] = WATER;
                     grid[randomRow][randomCol] = SMOKE;
+                }
+                else if (grid[randomRow + 1][randomCol] == ACID )
+                {
+                    grid[randomRow + 1][randomCol] = EMPTY;
+                    grid[randomRow][randomCol] = EMPTY;
                 }
             }
         }
@@ -756,10 +761,7 @@ public class Controller
                 {
                     grid[randomRow][randomCol] = EXPLOSION_FIRE;
 
-                    if(grid[randomRow - 1][randomCol] != WATER)
-                    {
-                        exploding = true;
-                    }
+                    exploding = true;
                 }
             }
             if (randomCol - 1 != -1)    //Checks left side of the bomb
@@ -768,10 +770,7 @@ public class Controller
                 {
                     grid[randomRow][randomCol] = EXPLOSION_FIRE;
 
-                    if(grid[randomRow - 1][randomCol] != WATER)
-                    {
-                        exploding = true;
-                    }
+                    exploding = true;
                 }
             }
             if (randomRow != 0)    //Checks above the bomb
@@ -780,10 +779,7 @@ public class Controller
                 {
                     grid[randomRow][randomCol] = EXPLOSION_FIRE;
 
-                    if(grid[randomRow - 1][randomCol] != WATER)
-                    {
-                        exploding = true;
-                    }
+                    exploding = true;
                 }
             }
             if (randomRow != grid.length - 1)    //Checks below the bomb
@@ -792,10 +788,7 @@ public class Controller
                 {
                     grid[randomRow][randomCol] = EXPLOSION_FIRE;
 
-                    if(grid[randomRow - 1][randomCol] != WATER)
-                    {
-                        exploding = true;
-                    }
+                    exploding = true;
                 }
             }
 
