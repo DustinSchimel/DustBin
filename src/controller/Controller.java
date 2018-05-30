@@ -38,7 +38,8 @@ public class Controller
         int numCols = 100;
 
         String[] toolNames;
-        toolNames = new String[14];
+        toolNames = new String[13];
+        //toolNames = new String[14];
         toolNames[EMPTY] = "Eraser";
         toolNames[SAND] = "Sand";
         toolNames[METAL] = "Metal";
@@ -52,7 +53,7 @@ public class Controller
         toolNames[FIRE] = "Fire";
         toolNames[OBSIDIAN] = "Obsidian";
         toolNames[BOMB] = "Bomb";
-        toolNames[EXPLOSION_FIRE] = "Explosion Fire";
+        //toolNames[EXPLOSION_FIRE] = "Explosion Fire";
 
         grid = new int[numRows][numCols];
 
