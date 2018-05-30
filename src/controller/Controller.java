@@ -991,6 +991,10 @@ public class Controller
             {
                 System.out.println("I/O Error");
             }
+            catch(NumberFormatException f)
+            {
+                System.out.println("Incorrect file");
+            }
         }
     }
 
