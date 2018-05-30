@@ -57,7 +57,7 @@ public class Controller
 
         grid = new int[numRows][numCols];
 
-        display = new Display("DustBin", numRows, numCols, toolNames, this);
+        display = new Display("SandGame", numRows, numCols, toolNames, this);
     }
 
     //Called when the user clicks on a location using the given tool
