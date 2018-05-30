@@ -246,6 +246,51 @@ public class Controller
                     grid[randomRow][randomCol] = SMOKE;
                     grid[randomRow + 1][randomCol] = DIRT;
                 }
+                if (grid[randomRow + 1][randomCol] == ACID)
+                {
+                    int fallthroughChance  = (int) (Math.random() * 2);
+
+                    if (fallthroughChance == 0)
+                    {
+                        grid[randomRow][randomCol] = ACID;
+                        grid[randomRow + 1][randomCol] = DIRT;
+                    }
+                    else
+                    {
+                        grid[randomRow][randomCol] = EMPTY;
+                        grid[randomRow + 1][randomCol] = EMPTY;
+                    }
+                }
+                if (grid[randomRow + 1][randomCol] == FIRE)
+                {
+                    int smokeChance = (int) (Math.random() * 8);
+
+                    if (smokeChance == 0)
+                    {
+                        grid[randomRow][randomCol] = SMOKE;
+                        grid[randomRow + 1][randomCol] = DIRT;
+                    }
+                    else
+                    {
+                        grid[randomRow][randomCol] = EMPTY;
+                        grid[randomRow + 1][randomCol] = DIRT;
+                    }
+                }
+                if (grid[randomRow + 1][randomCol] == EXPLOSION_FIRE)
+                {
+                    int smokeChance = (int) (Math.random() * 4);
+
+                    if (smokeChance == 0)
+                    {
+                        grid[randomRow][randomCol] = SMOKE;
+                        grid[randomRow + 1][randomCol] = DIRT;
+                    }
+                    else
+                    {
+                        grid[randomRow][randomCol] = EMPTY;
+                        grid[randomRow + 1][randomCol] = DIRT;
+                    }
+                }
             }
             else if (grid[randomRow][randomCol] == PURPLE_VIRUS)
             {
@@ -271,8 +316,16 @@ public class Controller
                 }
                 if (grid[randomRow + 1][randomCol] == SMOKE)
                 {
-                    grid[randomRow][randomCol] = SMOKE;
-                    grid[randomRow + 1][randomCol] = PURPLE_VIRUS;
+                    if (fallthroughChance == 0)
+                    {
+                        grid[randomRow][randomCol] = SMOKE;
+                        grid[randomRow + 1][randomCol] = PURPLE_VIRUS;
+                    }
+                    else
+                    {
+                        grid[randomRow][randomCol] = PURPLE_VIRUS;
+                        grid[randomRow + 1][randomCol] = PURPLE_VIRUS;
+                    }
                 }
             }
         }
@@ -460,6 +513,11 @@ public class Controller
         {
             int randomDirection = (int) (Math.random() * 3);
 
+            if (randomRow != grid.length - 1 && grid[randomRow + 1][randomCol] == WOOD)
+            {
+                randomDirection = (int) (Math.random() * 4);
+            }
+
             int removalChance = (int) (Math.random() * 15);
 
             int smokeChance = (int) (Math.random() * 60);
@@ -525,11 +583,24 @@ public class Controller
                 {
                     grid[randomRow - 1][randomCol] = FIRE;
                     grid[randomRow][randomCol] = FIRE;
+                }
+            }
+            else if (randomDirection == 3 && randomRow != grid.length - 1)	//Down, this only happens when wood is below
+            {
+                if (removalChance < 1)
+                {
+                    grid[randomRow][randomCol] = EMPTY;
+                }
 
-                    if (randomRow != grid.length - 1)
-                    {
-                        grid[randomRow + 1][randomCol] = FIRE;
-                    }
+                else if (grid[randomRow + 1][randomCol] == EMPTY)
+                {
+                    grid[randomRow + 1][randomCol] = FIRE;
+                    grid[randomRow][randomCol] = EMPTY;
+                }
+                else if (grid[randomRow + 1][randomCol] == WOOD)
+                {
+                    grid[randomRow + 1][randomCol] = FIRE;
+                    grid[randomRow][randomCol] = FIRE;
                 }
             }
         }
@@ -776,6 +847,11 @@ public class Controller
         {
             int randomDirection = (int) (Math.random() * 3);
 
+            if (randomRow != grid.length - 1 && grid[randomRow + 1][randomCol] == WOOD)
+            {
+                randomDirection = (int) (Math.random() * 4);
+            }
+
             int removalChance = (int) (Math.random() * 15);
 
             int smokeChance = (int) (Math.random() * 60);
@@ -841,11 +917,24 @@ public class Controller
                 {
                     grid[randomRow - 1][randomCol] = EXPLOSION_FIRE;
                     grid[randomRow][randomCol] = EXPLOSION_FIRE;
+                }
+            }
+            else if (randomDirection == 3 && randomRow != grid.length - 1)	//Down, this only happens when wood is below
+            {
+                if (removalChance < 1)
+                {
+                    grid[randomRow][randomCol] = EMPTY;
+                }
 
-                    if (randomRow != grid.length - 1)
-                    {
-                        grid[randomRow + 1][randomCol] = EXPLOSION_FIRE;
-                    }
+                else if (grid[randomRow + 1][randomCol] == EMPTY)
+                {
+                    grid[randomRow + 1][randomCol] = EXPLOSION_FIRE;
+                    grid[randomRow][randomCol] = EMPTY;
+                }
+                else if (grid[randomRow + 1][randomCol] == WOOD)
+                {
+                    grid[randomRow + 1][randomCol] = EXPLOSION_FIRE;
+                    grid[randomRow][randomCol] = EXPLOSION_FIRE;
                 }
             }
         }
