@@ -183,6 +183,51 @@ public class Controller
                     grid[randomRow][randomCol] = SMOKE;
                     grid[randomRow + 1][randomCol] = SAND;
                 }
+                if (grid[randomRow + 1][randomCol] == ACID)
+                {
+                    int fallthroughChance  = (int) (Math.random() * 2);
+
+                    if (fallthroughChance == 0)
+                    {
+                        grid[randomRow][randomCol] = ACID;
+                        grid[randomRow + 1][randomCol] = SAND;
+                    }
+                    else
+                    {
+                        grid[randomRow][randomCol] = EMPTY;
+                        grid[randomRow + 1][randomCol] = EMPTY;
+                    }
+                }
+                if (grid[randomRow + 1][randomCol] == FIRE)
+                {
+                    int smokeChance = (int) (Math.random() * 8);
+
+                    if (smokeChance == 0)
+                    {
+                        grid[randomRow][randomCol] = SMOKE;
+                        grid[randomRow + 1][randomCol] = SAND;
+                    }
+                    else
+                    {
+                        grid[randomRow][randomCol] = EMPTY;
+                        grid[randomRow + 1][randomCol] = SAND;
+                    }
+                }
+                if (grid[randomRow + 1][randomCol] == EXPLOSION_FIRE)
+                {
+                    int smokeChance = (int) (Math.random() * 4);
+
+                    if (smokeChance == 0)
+                    {
+                        grid[randomRow][randomCol] = SMOKE;
+                        grid[randomRow + 1][randomCol] = SAND;
+                    }
+                    else
+                    {
+                        grid[randomRow][randomCol] = EMPTY;
+                        grid[randomRow + 1][randomCol] = SAND;
+                    }
+                }
             }
             else if (grid[randomRow][randomCol] == DIRT)
             {
@@ -204,6 +249,8 @@ public class Controller
             }
             else if (grid[randomRow][randomCol] == PURPLE_VIRUS)
             {
+                int fallthroughChance  = (int) (Math.random() * 2);
+
                 if (grid[randomRow + 1][randomCol] == EMPTY)
                 {
                     grid[randomRow][randomCol] = EMPTY;
@@ -211,8 +258,16 @@ public class Controller
                 }
                 if (grid[randomRow + 1][randomCol] == WATER)
                 {
-                    grid[randomRow][randomCol] = WATER;
-                    grid[randomRow + 1][randomCol] = PURPLE_VIRUS;
+                    if (fallthroughChance == 0)
+                    {
+                        grid[randomRow][randomCol] = WATER;
+                        grid[randomRow + 1][randomCol] = PURPLE_VIRUS;
+                    }
+                    else
+                    {
+                        grid[randomRow][randomCol] = PURPLE_VIRUS;
+                        grid[randomRow + 1][randomCol] = PURPLE_VIRUS;
+                    }
                 }
                 if (grid[randomRow + 1][randomCol] == SMOKE)
                 {
@@ -228,7 +283,8 @@ public class Controller
 
             if (randomRow != grid.length - 1)
             {
-                if (grid[randomRow + 1][randomCol] == EMPTY)
+                if (grid[randomRow + 1][randomCol] == EMPTY || grid[randomRow + 1][randomCol] == SMOKE || grid[randomRow + 1][randomCol] == FIRE
+                        || grid[randomRow + 1][randomCol] == EXPLOSION_FIRE)
                 {
                     randomDirection = 2;
                 }
@@ -250,6 +306,34 @@ public class Controller
                     grid[randomRow][randomCol + 1] = WATER;
                     grid[randomRow][randomCol] = SMOKE;
                 }
+                else if (grid[randomRow][randomCol + 1] == FIRE)
+                {
+                    int smokeChance = (int) (Math.random() * 8);
+
+                    if (smokeChance == 0)
+                    {
+                        grid[randomRow][randomCol + 1] = SMOKE;
+                    }
+                    else
+                    {
+                        grid[randomRow][randomCol + 1] = WATER;
+                        grid[randomRow][randomCol] = EMPTY;
+                    }
+                }
+                else if (grid[randomRow][randomCol + 1] == EXPLOSION_FIRE)
+                {
+                    int smokeChance = (int) (Math.random() * 8);
+
+                    if (smokeChance == 0)
+                    {
+                        grid[randomRow][randomCol + 1] = SMOKE;
+                    }
+                    else
+                    {
+                        grid[randomRow][randomCol + 1] = WATER;
+                        grid[randomRow][randomCol] = EMPTY;
+                    }
+                }
             }
             else if (randomDirection == 1 && randomCol - 1 != -1)	//Left
             {
@@ -263,13 +347,69 @@ public class Controller
                     grid[randomRow][randomCol -1 ] = WATER;
                     grid[randomRow][randomCol] = SMOKE;
                 }
+                else if (grid[randomRow][randomCol - 1] == FIRE)
+                {
+                    int smokeChance = (int) (Math.random() * 8);
+
+                    if (smokeChance == 0)
+                    {
+                        grid[randomRow][randomCol - 1] = SMOKE;
+                    }
+                    else
+                    {
+                        grid[randomRow][randomCol - 1] = WATER;
+                        grid[randomRow][randomCol] = EMPTY;
+                    }
+                }
+                else if (grid[randomRow][randomCol - 1] == EXPLOSION_FIRE)
+                {
+                    int smokeChance = (int) (Math.random() * 8);
+
+                    if (smokeChance == 0)
+                    {
+                        grid[randomRow][randomCol - 1] = SMOKE;
+                    }
+                    else
+                    {
+                        grid[randomRow][randomCol - 1] = WATER;
+                        grid[randomRow][randomCol] = EMPTY;
+                    }
+                }
             }
             else if (randomDirection == 2 && randomRow != grid.length - 1)	//Down
             {
-                if (grid[randomRow + 1][randomCol] == EMPTY)
+                if (grid[randomRow + 1][randomCol] == EMPTY )
                 {
                     grid[randomRow + 1][randomCol] = WATER;
                     grid[randomRow][randomCol] = EMPTY;
+                }
+                else if (grid[randomRow + 1][randomCol] == FIRE)
+                {
+                    int smokeChance = (int) (Math.random() * 8);
+
+                    if (smokeChance == 0)
+                    {
+                        grid[randomRow + 1][randomCol] = SMOKE;
+                    }
+                    else
+                    {
+                        grid[randomRow + 1][randomCol] = WATER;
+                        grid[randomRow][randomCol] = EMPTY;
+                    }
+                }
+                else if (grid[randomRow + 1][randomCol] == EXPLOSION_FIRE)
+                {
+                    int smokeChance = (int) (Math.random() * 8);
+
+                    if (smokeChance == 0)
+                    {
+                        grid[randomRow + 1][randomCol] = SMOKE;
+                    }
+                    else
+                    {
+                        grid[randomRow + 1][randomCol] = WATER;
+                        grid[randomRow][randomCol] = EMPTY;
+                    }
                 }
                 else if (grid[randomRow + 1][randomCol] == SMOKE)
                 {
@@ -545,7 +685,10 @@ public class Controller
                 {
                     grid[randomRow][randomCol] = EXPLOSION_FIRE;
 
-                    exploding = true;
+                    if(grid[randomRow - 1][randomCol] != WATER)
+                    {
+                        exploding = true;
+                    }
                 }
             }
             if (randomCol - 1 != -1)    //Checks left side of the bomb
@@ -554,7 +697,10 @@ public class Controller
                 {
                     grid[randomRow][randomCol] = EXPLOSION_FIRE;
 
-                    exploding = true;
+                    if(grid[randomRow - 1][randomCol] != WATER)
+                    {
+                        exploding = true;
+                    }
                 }
             }
             if (randomRow != 0)    //Checks above the bomb
@@ -563,7 +709,10 @@ public class Controller
                 {
                     grid[randomRow][randomCol] = EXPLOSION_FIRE;
 
-                    exploding = true;
+                    if(grid[randomRow - 1][randomCol] != WATER)
+                    {
+                        exploding = true;
+                    }
                 }
             }
             if (randomRow != grid.length - 1)    //Checks below the bomb
@@ -572,7 +721,10 @@ public class Controller
                 {
                     grid[randomRow][randomCol] = EXPLOSION_FIRE;
 
-                    exploding = true;
+                    if(grid[randomRow - 1][randomCol] != WATER)
+                    {
+                        exploding = true;
+                    }
                 }
             }
 
