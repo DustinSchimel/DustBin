@@ -1001,7 +1001,6 @@ public class Controller
     public void saveLevel()
     {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
-
         StringBuilder builder = new StringBuilder();
 
         try
