@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="DustBinSwing:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/DustBinSwing_jar</output-path>
-    <root id="archive" name="DustBinSwing.jar">
-      <element id="module-output" name="DustBinSwing" />
-    </root>
-  </artifact>
-</component>
