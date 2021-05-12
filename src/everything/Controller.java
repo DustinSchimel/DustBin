@@ -1,6 +1,4 @@
-package controller;
-
-import view.Display;
+package everything;
 
 import java.awt.*;
 import java.io.BufferedReader;

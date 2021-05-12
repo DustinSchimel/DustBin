@@ -1,4 +1,4 @@
-package controller;
+package everything;
 
 /**
  * Runs the project by calling the Controller

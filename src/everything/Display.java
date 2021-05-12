@@ -1,6 +1,4 @@
-package view;
-
-import controller.Controller;
+package everything;
 
 import java.awt.*;
 import java.awt.event.*;
