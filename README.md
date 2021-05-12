@@ -18,4 +18,4 @@ Navigate to the [releases](https://github.com/Xerphy/DustBin/releases) page and 
   - Levels must be loaded from the same directory that the DustBin.exe file is in
 
 ### License
-MIT
+[MIT](https://choosealicense.com/licenses/mit/)
