@@ -6,7 +6,7 @@ DustBin is a Java game that gives you a pixel sandbox environment to interact wi
   - Slow motion and pausing features allow for even better fine touches
 
 ### Purpose
-This was a project I originally added onto for a CS class I took in 2018. This repo is an updated version of [this](https://github.com/Xerphy/SandGame) one. This repo is made available as well as the release to enable them to be viewed as a simple portfolio piece. I don't plan on updating this game in the foreseeable future.
+This was a project I originally added onto for a CS class I took in 2018. This repo is an updated version of an [older](https://github.com/Xerphy/SandGame) one. This repo is made available as well as the release to enable them to be viewed as a simple portfolio piece. I don't plan on updating this game in the foreseeable future.
 
 ### Installation
 Navigate to the [releases](https://github.com/Xerphy/DustBin/releases) page and download the latest zip. Once the zip is extracted, launch the DustBin.exe to start the game.
