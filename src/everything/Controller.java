@@ -941,7 +941,7 @@ public class Controller
     {
         FileDialog dialog = new FileDialog((Frame)null, "Select Level to Load");
         dialog.setMode(FileDialog.LOAD);
-        dialog.setFile("*.txt");
+        dialog.setFile("*.level");
         dialog.setVisible(true);
         String file = dialog.getFile();
 
@@ -1016,7 +1016,7 @@ public class Controller
                 builder.append("\n");					//Append new line at the end of the row
             }
 
-            BufferedWriter writer = new BufferedWriter(new FileWriter("DustLevel" + timeStamp + ".txt"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter("DustLevel" + timeStamp + ".level"));
             writer.write(builder.toString());
             writer.close();
         }
